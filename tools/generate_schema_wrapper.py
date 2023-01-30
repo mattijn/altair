@@ -23,6 +23,7 @@ from schemapi.utils import (  # noqa: E402
     resolve_references,
 )
 import generate_api_docs  # noqa: E402
+import update_init_file  # noqa: E402
 
 # Map of version name to github branch name.
 SCHEMA_VERSION = {
@@ -556,6 +557,21 @@ def generate_vegalite_config_mixin(schemafile):
             code.append("\n    ".join(method.splitlines()))
     return imports, "\n".join(code)
 
+def generate_vegalite_init():
+    # Import Altair from head
+    ROOT_DIR = abspath(join(dirname(__file__), ".."))
+    sys.path.insert(0, ROOT_DIR)
+    import altair as alt  # noqa: E402
+
+    visible_modules = "\n".join([x for x in dir(alt) if not getattr(getattr(alt, x), "_deprecated", False)])
+
+    contents = [HEADER, VERSION]
+    contents.append(visible_modules)
+    contents.extend(['\n',INIT_REMAINING])
+    
+    return "\n".join(contents) 
+
+
 
 def vegalite_main(skip_download=False):
     library = "vega-lite"
@@ -626,8 +642,10 @@ def main():
     args = parser.parse_args()
     copy_schemapi_util()
     vegalite_main(args.skip_download)
-
+    
+    update_init_file.write_init_file()
     generate_api_docs.write_api_file()
+
 
 
 if __name__ == "__main__":
