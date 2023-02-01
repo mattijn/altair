@@ -23,7 +23,6 @@ from schemapi.utils import (  # noqa: E402
     resolve_references,
 )
 import generate_api_docs  # noqa: E402
-import update_init_file  # noqa: E402
 
 # Map of version name to github branch name.
 SCHEMA_VERSION = {
@@ -628,7 +627,6 @@ def main():
     copy_schemapi_util()
     vegalite_main(args.skip_download)
 
-    update_init_file.write_init_file()
     generate_api_docs.write_api_file()
 
 
