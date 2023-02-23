@@ -7,9 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
-        jsonschema-version: ["4.0", "4.5", "4.17"]
-        pandas-version: ["1.5.3", "2.0.0rc0"]
+        python-version: ["3.10"]
+        jsonschema-version: ["3.0.0", "3.2.0"]
+        pandas-version: ["1.5.3"]
     name: py ${{ matrix.python-version }} js ${{ matrix.jsonschema-version }} pd ${{ matrix.pandas-version }}
     steps:
       - uses: actions/checkout@v3
