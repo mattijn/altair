@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.10"]
-        jsonschema-version: ["3.0.0", "3.2.0"]
+        python-version: ["3.7"]
+        jsonschema-version: ["4.17"]
         pandas-version: ["1.5.3"]
     name: py ${{ matrix.python-version }} js ${{ matrix.jsonschema-version }} pd ${{ matrix.pandas-version }}
     steps:
